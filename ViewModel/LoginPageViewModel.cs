@@ -12,6 +12,7 @@ namespace TriviaApp.ViewModel
 {
     public class LoginPageViewModel:ViewModel 
     {
+        private TriviaAppService triviaAppService;
         private string username;
         private string password;
         private string theLogin;
@@ -19,8 +20,8 @@ namespace TriviaApp.ViewModel
 
 
 
-        public string Username { get { return username; } set { username = value; OnPropertyChanged(); } }
-        public string Password { get { return password; } set { password = value; OnPropertyChanged(); } }
+        public string Username { get { return username; } set { username = value; OnPropertyChanged();((Command)LoginCommand).ChangeCanExecute(); } }
+        public string Password { get { return password; } set { password = value; OnPropertyChanged(); ((Command)LoginCommand).ChangeCanExecute(); } }
         public string TheLogin { get { return theLogin; } set { theLogin = value; OnPropertyChanged(); } }
         public Color TheLoginColor { get { return theLoginColor; } set { theLoginColor = value; OnPropertyChanged(); } }
         public ICommand LoginCommand { get; set; }
@@ -28,27 +29,31 @@ namespace TriviaApp.ViewModel
 
         private User user;
 
-        public LoginPageViewModel()
+        public LoginPageViewModel(TriviaAppService service)
         {
+            this.triviaAppService = service;
             user = new User();
-            LoginCommand = new Command(Login, () => !String.IsNullOrEmpty(username) && !String.IsNullOrEmpty(Password));
-            CancelCommand = new Command(Cancel, () => !String.IsNullOrEmpty(username) || !String.IsNullOrEmpty(Password));
+            LoginCommand = new Command(async () => await Login(), () => !String.IsNullOrEmpty(Username) && !String.IsNullOrEmpty(Password)) ;
+            CancelCommand = new Command(Cancel, () => !String.IsNullOrEmpty(Username) || !String.IsNullOrEmpty(Password));
         }
 
-        public void Login()
+        public async Task Login()
         {
-            TriviaAppService triviaApp = new TriviaAppService();
-            bool isExist = triviaApp.Login( username, password);
+           
+            bool isExist = triviaAppService.Login( username, password);
             if (isExist == true)
             {
-                theLogin = "התחבר בהצלחה";
-                theLoginColor = Colors.DeepSkyBlue;
+                TheLogin = "התחבר בהצלחה";
+                TheLoginColor = Colors.DeepSkyBlue;
+               await AppShell.Current.GoToAsync("BestScoresPage");
+
             }
 
             else
             {
-                theLogin = "לא קיים משתמש";
-                theLoginColor = Colors.DeepSkyBlue;
+                TheLogin = "לא קיים משתמש";
+                TheLoginColor = Colors.DeepSkyBlue;
+
             }
         }
 

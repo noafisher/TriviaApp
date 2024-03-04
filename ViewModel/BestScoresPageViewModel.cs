@@ -1,4 +1,4 @@
-﻿using CoreML;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,17 +14,22 @@ namespace TriviaApp.ViewModel
 {
     public class BestScoresPageViewModel : ViewModel
     {
+        private TriviaAppService triviaApp;
         private bool isRefreshing; 
+        public User SelectedUser { get; set; }
         public ObservableCollection<User> Users { get; set; }
         public ICommand LoadUsersCommand { get; private set; }
+        public ICommand ShowUserDetailsCommand { get; private set; }
         public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
 
 
-        public BestScoresPageViewModel()
+        public BestScoresPageViewModel(TriviaAppService triviaApp)
         {
+            this.triviaApp = triviaApp;
             Users = new ObservableCollection<User>();
             LoadUsersCommand = new Command(async () => await
             LoadUsers());
+            
         }
 
         private async Task LoadUsers()
@@ -32,17 +37,15 @@ namespace TriviaApp.ViewModel
             if (IsRefreshing) return;
             IsRefreshing = true;
             Users.Clear();
-            foreach (User u in Users)
+            var list=  triviaApp.OrderUsers();
+            foreach (User u in list)
             {
-                TriviaAppService service = new TriviaAppService();
+                Users.Add(u);
             }
+            IsRefreshing = false;
 
         }
 
-        private void GetUsers()
-        {
-            TriviaAppService service = new TriviaAppService();
-            
-        }
+       
     }
 }

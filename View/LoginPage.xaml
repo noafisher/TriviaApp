@@ -14,15 +14,21 @@
             Text="Login Page"
             TextColor="LightSkyBlue" />
 
-        <Entry Placeholder="הכנס שם" PlaceholderColor="MidnightBlue" />
+        <Entry
+            Placeholder="הכנס שם"
+            PlaceholderColor="MidnightBlue"
+            Text="{Binding Username}" />
         <Entry
             IsPassword="True"
             Placeholder="הכנס סיסמה"
-            PlaceholderColor="MidnightBlue" />
-        <Button x:Name="login"
-                Text="התחבר" WidthRequest="150"
-                Command="{Binding LoginCommand}" />
-        <Label Text="{Binding TheLogin}" TextColor="{Binding TheLoginColor}"/>
+            PlaceholderColor="MidnightBlue"
+            Text="{Binding Password}" />
+        <Button
+            x:Name="login"
+            Command="{Binding LoginCommand}"
+            Text="התחבר"
+            WidthRequest="150" />
+        <Label Text="{Binding TheLogin}" TextColor="{Binding TheLoginColor}" />
 
 
     </VerticalStackLayout>

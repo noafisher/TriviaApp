@@ -8,7 +8,7 @@ namespace TriviaApp
         {
             InitializeComponent();
 
-            MainPage = new LoginPage();
+            MainPage = new AppShell();
         }
     }
 }

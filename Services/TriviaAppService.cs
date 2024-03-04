@@ -7,7 +7,7 @@ using TriviaApp.Models;
 
 namespace TriviaApp.Services
 {
-    internal class TriviaAppService
+    public class TriviaAppService
     {
         List<User> users;
 
@@ -15,8 +15,8 @@ namespace TriviaApp.Services
         public TriviaAppService() 
         {
             users = new List<User>();
-            users.Add(new User() {UserName="NoaF" , Password="110907n"});
-            users.Add(new User() { UserName = "Shahar", Password = "290807s" });
+            users.Add(new User() {UserName="NoaF" , Password="110907n", Points=1000});
+            users.Add(new User() { UserName = "Shahar", Password = "290807s", Points=500 });
 
         }
 
@@ -30,7 +30,7 @@ namespace TriviaApp.Services
             return this.users.OrderByDescending(u => u.Points).ToList();
         }
 
-        
+       
 
     }
 }
