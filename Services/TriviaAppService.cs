@@ -12,11 +12,11 @@ namespace TriviaApp.Services
         List<User> users;
 
 
-        public TriviaAppService() 
+        public TriviaAppService()
         {
             users = new List<User>();
-            users.Add(new User() {UserName="NoaF" , Password="110907n", Points=1000});
-            users.Add(new User() { UserName = "Shahar", Password = "290807s", Points=500 });
+            users.Add(new User() { UserName = "NoaF", Password = "110907n", Points = 1000, Rank = new Rank{ RankId = 1, RankName = "Manager" } , Email="noa.fisher.2007@gmail.com" });
+            users.Add(new User() { UserName = "Shahar", Password = "290807s", Points=500 ,Rank = new Rank { RankId = 2, RankName = "Master" }, Email="shahr.oz298@gmail.com" });
 
         }
 
