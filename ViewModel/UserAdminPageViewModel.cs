@@ -10,5 +10,10 @@ namespace TriviaApp.ViewModel
 {
     public class UserAdminPageViewModel:ViewModel
     {
+        private TriviaAppService service;
+        public UserAdminPageViewModel(TriviaAppService service_)
+        {
+            this.service = service_;
+        }
     }
 }
