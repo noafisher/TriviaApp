@@ -12,7 +12,7 @@ namespace TriviaApp.Models
         public string Password { get;  set ;  }
         public string Email { get;  set ;  }
         public int Points { get ;  set ;  }
-        public int Rank{ get; set; }
+        public Rank Rank{ get; set; }
 
 
     }

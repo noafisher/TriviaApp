@@ -10,7 +10,6 @@
     <VerticalStackLayout>
         <Label />
         <Button Command="{Binding LoadUsersCommand}" Text="Enter Users" />
-        <Button Command="{Binding ShowUserDetailsCommand}" Text="Show Details" />
         <RefreshView Command="{Binding LoadUsersCommand}" IsRefreshing="{Binding IsRefreshing}" />
 
         <CollectionView
@@ -31,7 +30,7 @@
                     <Grid
                         Margin="10"
                         ColumnDefinitions="auto,auto"
-                        ColumnSpacing="2">
+                        ColumnSpacing="2"> 
                         <Label
                             HeightRequest="100"
                             Text="{Binding UserName}"
@@ -50,8 +49,27 @@
 
 
         </CollectionView>
+        <!--  user info  -->
+        <HorizontalStackLayout>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="User Rank:" />
+                        <Span Text="{Binding Rank}" />
+                    </FormattedString>
 
+                </Label.FormattedText>
+            </Label>
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="User Email:" />
+                        <Span Text="{Binding Email}" />
+                    </FormattedString>
 
+                </Label.FormattedText>
+            </Label>
+        </HorizontalStackLayout>
 
     </VerticalStackLayout>
 </ContentPage>
