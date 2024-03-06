@@ -77,5 +77,11 @@ namespace TriviaApp.Services
         {
             return users.Where(x => x.Rank.RankName == l).ToList();
         }
+        public void UpdatePlayer(User user)
+        {
+            var us = users.Where(x=>x.UserName==user.UserName).FirstOrDefault();
+            us.Points = user.Points;
+
+        }
     }
 }

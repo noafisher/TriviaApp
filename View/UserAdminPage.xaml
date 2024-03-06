@@ -13,14 +13,14 @@
                 <Label Text="Insert the player:" />
                 <Entry Placeholder="הכנס איימיל" PlaceholderColor="MidnightBlue" />
                 <Entry Placeholder="הכנס שם משתמש" PlaceholderColor="MidnightBlue" />
-                
+
                 <Entry
                     IsPassword="True"
                     Placeholder="הכנס סיסמה"
                     PlaceholderColor="MidnightBlue" />
-                <Button Text="הכנס " Command="{Binding InsertCommand}"/>
+                <Button Command="{Binding InsertCommand}" Text="הכנס " />
                 <CollectionView
-                    x:Name="colview"
+                    x:Name="cv"
                     EmptyView="אין מה לחפש פה:_("
                     ItemsSource="{Binding Users}">
                     <!--<CollectionView.ItemsLayout>

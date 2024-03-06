@@ -62,6 +62,7 @@ namespace TriviaApp.ViewModel
         {
             User s = obj as User;
             s.Points = 0;
+            service.UpdatePlayer(s);    
             
         }
         private void Insert(object user)
