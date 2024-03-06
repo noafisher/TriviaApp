@@ -1,85 +1,97 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TriviaApp.View.ApproveQuestionsPage"
-             xmlns:Models="clr-namespace:TriviaApp.Models"
-             xmlns:vm="clr-namespace:TriviaApp.ViewModel"
-             x:DataType="vm:ApproveQuestionsPageViewModel"
-             Title="ApproveQuestionsPage">
+<ContentPage
+    x:Class="TriviaApp.View.ApproveQuestionsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Models="clr-namespace:TriviaApp.Models"
+    xmlns:vm="clr-namespace:TriviaApp.ViewModel"
+    Title="ApproveQuestionsPage"
+    x:DataType="vm:ApproveQuestionsPageViewModel">
     <ScrollView>
-        <VerticalStackLayout>
-            <CollectionView ItemsSource="{Binding Questions}" x:Name="collection">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="Models:Question">
-                        <SwipeView>
-                            <SwipeView.LeftItems>
-                                <SwipeItem
-                                    Command="{Binding Source={x:Reference collection},Path=BindingContext.ApproveQuestionCommnad}"
-                                    CommandParameter="{Binding .}"
-                                    IconImageSource="https://static.thenounproject.com/png/1668947-200.png"/>
-                            </SwipeView.LeftItems>
-                            <Border
-                                Margin="4">
-                                <VerticalStackLayout>
-                                    <Label>
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="Subject: "/>
-                                                <Span Text="{Binding Subject.SubjectName}"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label>
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="Text: "/>
-                                                <Span Text="{Binding Text}"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label>
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="Right answer: "/>
-                                                <Span Text="{Binding Ranswer}"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label>
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="wrong answer1: "/>
-                                                <Span Text="{Binding Wanswer1}"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label>
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="wrong answer2: "/>
-                                                <Span Text="{Binding Wanswer2}"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                    <Label>
-                                        <Label.FormattedText>
-                                            <FormattedString>
-                                                <Span Text="wrong answer3: "/>
-                                                <Span Text="{Binding Wanswer3}"/>
-                                            </FormattedString>
-                                        </Label.FormattedText>
-                                    </Label>
-                                </VerticalStackLayout>
-                            </Border>
-                        </SwipeView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-                <CollectionView.EmptyView>
-                    <StackLayout VerticalOptions="CenterAndExpand">
-                        <Label HorizontalOptions="Center" Text="No Users" />
-                    </StackLayout>
-                </CollectionView.EmptyView>
-            </CollectionView>
-        </VerticalStackLayout>
+        <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
+
+            <VerticalStackLayout>
+                <Picker
+                    Title="choose subject"
+                    ItemDisplayBinding="{Binding SubjectName}"
+                    ItemsSource="{Binding SubjectQuestions}"
+                    SelectedItem="{Binding SelectedSubject}" />
+                <CollectionView x:Name="collection" ItemsSource="{Binding Questions}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="Models:Question">
+                            <SwipeView>
+                                <SwipeView.RightItems>
+                                    <SwipeItem
+                                        Command="{Binding Source={x:Reference collection}, Path=BindingContext.ApproveQuestionCommand}"
+                                        CommandParameter="{Binding .}"
+                                        IconImageSource="https://static.thenounproject.com/png/1668947-200.png" />
+                                    <SwipeItem
+                                        Command="{Binding Source={x:Reference collection}, Path=BindingContext.DeclineQuestionCommand}"
+                                        CommandParameter="{Binding .}"
+                                        IconImageSource="https://cdn.icon-icons.com/icons2/2518/PNG/512/x_icon_150997.png" />
+                                </SwipeView.RightItems>
+                                <Border Margin="4">
+                                    <VerticalStackLayout>
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Subject: " />
+                                                    <Span Text="{Binding Subject.SubjectName}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Text: " />
+                                                    <Span Text="{Binding Text}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="Right answer: " />
+                                                    <Span Text="{Binding Ranswer}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="wrong answer1: " />
+                                                    <Span Text="{Binding Wanswer1}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="wrong answer2: " />
+                                                    <Span Text="{Binding Wanswer2}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                        <Label>
+                                            <Label.FormattedText>
+                                                <FormattedString>
+                                                    <Span Text="wrong answer3: " />
+                                                    <Span Text="{Binding Wanswer3}" />
+                                                </FormattedString>
+                                            </Label.FormattedText>
+                                        </Label>
+                                    </VerticalStackLayout>
+                                </Border>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                    <CollectionView.EmptyView>
+                        <StackLayout VerticalOptions="CenterAndExpand">
+                            <Label HorizontalOptions="Center" Text="No Pending Questions" />
+                        </StackLayout>
+                    </CollectionView.EmptyView>
+                </CollectionView>
+            </VerticalStackLayout>
+        </RefreshView>
     </ScrollView>
 </ContentPage>
