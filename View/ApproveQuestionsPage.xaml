@@ -8,12 +8,15 @@
              Title="ApproveQuestionsPage">
     <ScrollView>
         <VerticalStackLayout>
-            <CollectionView ItemsSource="{Binding}">
+            <CollectionView ItemsSource="{Binding Questions}" x:Name="collection">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="Models:Question">
                         <SwipeView>
                             <SwipeView.LeftItems>
-
+                                <SwipeItem
+                                    Command="{Binding Source={x:Reference collection},Path=BindingContext.ApproveQuestionCommnad}"
+                                    CommandParameter="{Binding .}"
+                                    IconImageSource="https://static.thenounproject.com/png/1668947-200.png"/>
                             </SwipeView.LeftItems>
                             <Border
                                 Margin="4">
@@ -22,7 +25,7 @@
                                         <Label.FormattedText>
                                             <FormattedString>
                                                 <Span Text="Subject: "/>
-                                                <Span Text="{Binding Subject}"/>
+                                                <Span Text="{Binding Subject.SubjectName}"/>
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>

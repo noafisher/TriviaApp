@@ -45,7 +45,8 @@ namespace TriviaApp.ViewModel
             {
                 TheLogin = "התחבר בהצלחה";
                 TheLoginColor = Colors.DeepSkyBlue;
-               await AppShell.Current.GoToAsync("BestScoresPage");
+                AppShell.Current.FlyoutBehavior = FlyoutBehavior.Flyout;
+                await AppShell.Current.GoToAsync("///BestScoresPage");
 
             }
 

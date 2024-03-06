@@ -10,7 +10,7 @@ namespace TriviaApp.Models
     public class Question
     {
         
-        public string Subject { get; set; } = null!;
+        public SubjectQuestion Subject { get; set; } = null!;
 
         public string Text { get; set; } = null!;
 
@@ -27,9 +27,8 @@ namespace TriviaApp.Models
 
         public string CreatedBy { get; set; } = null!;
 
-        public int StatusId { get; set; }
+        public StatusQuestion Status { get; set; }
 
-        public int SubjectId { get; set; }
 
     }
 }
