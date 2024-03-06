@@ -19,15 +19,18 @@ namespace TriviaApp.ViewModel
         private TriviaAppService triviaApp;
         private bool isRefreshing;
         private string email;
-        private bool isOrdered; 
+        private bool isOrdered;
+        private string filterEntry;
 
         public User SelectedUser { get=> selectedUser; set { selectedUser = value; UpdateFields(); } }
         public ObservableCollection<User> Users { get; set; }
         public ICommand LoadUsersCommand { get; private set; }
         public ICommand MessUsersCommand { get; private set; }
+        public ICommand FilterByLevelCommand {  get; private set; }
         public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
         public string Rank {  get => rank; set { rank = value; OnPropertyChanged(); } }  
         public string Email { get => email; set { email = value; OnPropertyChanged(); } }
+        public string FilterEntry { get => filterEntry; set { value= filterEntry; OnPropertyChanged(); } }  
         public BestScoresPageViewModel(TriviaAppService triviaApp)
         {
             IsRefreshing = false;
@@ -36,8 +39,11 @@ namespace TriviaApp.ViewModel
             LoadUsersCommand = new Command(async () => await
             LoadUsers());
             MessUsersCommand = new Command(async () => await ReloadAndOrder());
+            FilterByLevelCommand = new Command<string>((x) => FilterByLevel(x));
             
         }
+
+        
 
         private async Task LoadUsers()
         {
@@ -51,7 +57,7 @@ namespace TriviaApp.ViewModel
                 Users.Add(u);
             }
             IsRefreshing = false;
-            isOrdered = false;
+            isOrdered = true; 
         }
 
         private void UpdateFields()
@@ -86,5 +92,17 @@ namespace TriviaApp.ViewModel
             }
 
         }
+
+        private void FilterByLevel(string filter)
+        {
+            List<User> filterUsers = triviaApp.GetPlayerByLevel(filter); 
+            Users.Clear();
+            foreach(User u in filterUsers)
+            {
+                Users.Add(u);
+            }
+        }
+
+
     }
 }
