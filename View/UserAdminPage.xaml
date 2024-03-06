@@ -1,40 +1,78 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TriviaApp.View.UserAdminPage"
-             Title="UserAdminPage"
-             xmlns:Models="clr-namespace:TriviaApp.Models"
-             xmlns:vm="clr-namespace:TriviaApp.ViewModel"
-             x:DataType="vm:UserAdminPageViewModel"
-             >
-    <ScrollView>
-        <VerticalStackLayout>
+<ContentPage
+    x:Class="TriviaApp.View.UserAdminPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Models="clr-namespace:TriviaApp.Models"
+    xmlns:vm="clr-namespace:TriviaApp.ViewModel"
+    Title="UserAdminPage"
+    x:DataType="vm:UserAdminPageViewModel">
+    <VerticalStackLayout>
+        <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
+            <ScrollView Margin="10">
+                <CollectionView
+                    x:Name="colview"
+                    EmptyView="אין מה לחפש פה:_("
+                    ItemsSource="{Binding Users}">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout ItemSpacing="4" Orientation="Vertical" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="Models:User">
+                            <SwipeView>
+                                <SwipeView.LeftItems>
+                                    <SwipeItem
+                                        Command="{Binding BindingContext.DeleteCommand, Source={x:Reference cv}}"
+                                        CommandParameter="{Binding}"
+                                        Text="Delete" />
+                                    <SwipeItem
+                                        Command="{Binding BindingContext.ResetCommand, Source={x:Reference cv}}"
+                                        CommandParameter="{Binding}"
+                                        Text="Reset" />
+                                </SwipeView.LeftItems>
+
+                                <Grid
+                                    Margin="10"
+                                    ColumnDefinitions="auto,auto"
+                                    ColumnSpacing="2">
+                                    <Label
+                                        HeightRequest="100"
+                                        Text="{Binding UserName}"
+                                        VerticalOptions="Center"
+                                        WidthRequest="100" />
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="End"
+                                        Text="{Binding Email}" />
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="End"
+                                        Text="{Binding Rank}" />
+                                    <Label
+                                        Grid.Column="1"
+                                        HorizontalOptions="End"
+                                        Text="{Binding Points}" />
 
 
+                                </Grid>
+                            </SwipeView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
 
 
-            <CollectionView ItemsSource="{Binding}">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="Models:User">
-                        <SwipeView>
-                            <SwipeView.LeftItems>
+                </CollectionView>
+            </ScrollView>
+        </RefreshView>
 
-                            </SwipeView.LeftItems>
-                            <Border
-                                Margin="4">
-                                <VerticalStackLayout>
-                                    
-                                </VerticalStackLayout>
-                            </Border>
-                        </SwipeView>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-                <CollectionView.EmptyView>
-                    <StackLayout VerticalOptions="CenterAndExpand">
-                        <Label HorizontalOptions="Center" Text="No Users" />
-                    </StackLayout>
-                </CollectionView.EmptyView>
-            </CollectionView>
-        </VerticalStackLayout>
-    </ScrollView>
+        <Label Text="Insert the player:" />
+        <Entry Placeholder="הכנס איימיל" PlaceholderColor="MidnightBlue" />
+        <Entry Placeholder="הכנס שם משתמש" PlaceholderColor="MidnightBlue" />
+        <Entry
+            IsPassword="True"
+            Placeholder="הכנס סיסמה"
+            PlaceholderColor="MidnightBlue" />
+        <Button Text="הכנס "/>
+
+    </VerticalStackLayout>
 </ContentPage>

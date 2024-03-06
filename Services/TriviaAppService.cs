@@ -50,6 +50,18 @@ namespace TriviaApp.Services
             return questions.Where(x => x.Status.StatusId == 1&&x.Subject.SubjectName==SubjectName).ToList();
         }
         public List<Question> GetPendingQuestions()
+
+        public List<User> MessUsers()
+        {
+            return this.users.OrderBy(u => u.Points).ToList();
+        }
+
+        public List<User> GetUser()
+        {
+            return users;
+        }
+
+       public List<Question> GetPendingQuestions()
         {
             return questions.Where(x=>x.Status.StatusId == 1).ToList();
         }

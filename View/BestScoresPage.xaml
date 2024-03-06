@@ -8,47 +8,46 @@
     Title="BestScoresPage"
     x:DataType="vm:BestScoresPageViewModel">
     <VerticalStackLayout>
-        <Label />
+
         <Button Command="{Binding LoadUsersCommand}" Text="Enter Users" />
-        <RefreshView Command="{Binding LoadUsersCommand}" IsRefreshing="{Binding IsRefreshing}" />
+        <Button Command="{Binding MessUsersCommand}" Text="Order Again" />
+        <RefreshView Command="{Binding LoadUsersCommand}" IsRefreshing="{Binding IsRefreshing}">
 
-        <CollectionView
-            x:Name="cv"
-            ItemsSource="{Binding Users}"
-            SelectedItem="{Binding SelectedUser}"
-            SelectionMode="Single">
-            <CollectionView.EmptyView>
-                <StackLayout VerticalOptions="CenterAndExpand">
-                    <Label HorizontalOptions="Center" Text="No Users" />
-                </StackLayout>
+            <CollectionView
+                x:Name="cv"
+                ItemsSource="{Binding Users}"
+                SelectedItem="{Binding SelectedUser}"
+                SelectionMode="Single">
+                <CollectionView.EmptyView>
+                    <StackLayout VerticalOptions="CenterAndExpand">
+                        <Label HorizontalOptions="Center" Text="No Users" />
+                    </StackLayout>
+                </CollectionView.EmptyView>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="Models:User">
+                        <Grid
+                            Margin="10"
+                            ColumnDefinitions="auto,auto"
+                            ColumnSpacing="2">
+                            <Label
+                                HeightRequest="100"
+                                Text="{Binding UserName}"
+                                VerticalOptions="Center"
+                                WidthRequest="100" />
+                            <Label
+                                Grid.Column="1"
+                                HorizontalOptions="End"
+                                Text="{Binding Points}" />
+                        </Grid>
 
-
-
-            </CollectionView.EmptyView>
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="Models:User">
-                    <Grid
-                        Margin="10"
-                        ColumnDefinitions="auto,auto"
-                        ColumnSpacing="2"> 
-                        <Label
-                            HeightRequest="100"
-                            Text="{Binding UserName}"
-                            VerticalOptions="Center"
-                            WidthRequest="100" />
-                        <Label
-                            Grid.Column="1"
-                            HorizontalOptions="End"
-                            Text="{Binding Points}" />
-                    </Grid>
-
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
 
 
 
 
-        </CollectionView>
+            </CollectionView>
+        </RefreshView>
         <!--  user info  -->
         <HorizontalStackLayout>
             <Label>
