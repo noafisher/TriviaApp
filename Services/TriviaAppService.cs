@@ -51,5 +51,9 @@ namespace TriviaApp.Services
             q.Status = statusQuestions.Where(x => x.StatusId == 2).FirstOrDefault();
         }
 
+        public List<User> GetPlayerByLevel(string l)
+        {
+            return users.Where(x => x.Rank.RankName == l).ToList();
+        }
     }
 }
