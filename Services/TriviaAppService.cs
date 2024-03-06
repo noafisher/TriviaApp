@@ -12,6 +12,7 @@ namespace TriviaApp.Services
         List<User> users;
         List<Question> questions;
         List<StatusQuestion> statusQuestions;
+        List<SubjectQuestion> subjectQuestions;
 
         public TriviaAppService()
         {
@@ -22,8 +23,13 @@ namespace TriviaApp.Services
             statusQuestions.Add(new StatusQuestion() { StatusId = 1, StatusDescription = "pending" });
             statusQuestions.Add(new StatusQuestion() { StatusId = 2, StatusDescription = "approved" });
             statusQuestions.Add(new StatusQuestion() { StatusId = 3, StatusDescription = "declined" });
+            subjectQuestions= new List<SubjectQuestion>();
+            subjectQuestions.Add(new SubjectQuestion() { SubjectId = 1, SubjectName ="Animals"});
+            subjectQuestions.Add(new SubjectQuestion() { SubjectId = 2, SubjectName = "Celebrities" });
+            subjectQuestions.Add(new SubjectQuestion() { SubjectId = 3, SubjectName = "TV shows" });
+            subjectQuestions.Add(new SubjectQuestion() { SubjectId = 4, SubjectName = "Movies" });
             questions = new List<Question>();
-            questions.Add(new Question() { QuestionId = 1, Subject = new SubjectQuestion() { SubjectId = 1, SubjectName = "Animals" }, CreatedBy = "NoaF", Status = statusQuestions.Where(x=>x.StatusId==1).FirstOrDefault(), Text="how many arms does an octopus have?", Ranswer="8", Wanswer1="10", Wanswer2="4", Wanswer3="30" });
+            questions.Add(new Question() { QuestionId = 1, Subject = subjectQuestions.Where(x=>x.SubjectId==1).FirstOrDefault(), CreatedBy = "NoaF", Status = statusQuestions.Where(x=>x.StatusId==1).FirstOrDefault(), Text="how many arms does an octopus have?", Ranswer="8", Wanswer1="10", Wanswer2="4", Wanswer3="30" });
         }
 
         public bool Login(string name, string pass)
@@ -35,12 +41,24 @@ namespace TriviaApp.Services
         {
             return this.users.OrderByDescending(u => u.Points).ToList();
         }
+        public List<SubjectQuestion> GetSubjects()
+        {
+            return subjectQuestions;
+        }
+        public List<Question> GetPendingQuestionsBySubjectName(string SubjectName)
+        {
+            return questions.Where(x => x.Status.StatusId == 1&&x.Subject.SubjectName==SubjectName).ToList();
+        }
 
         public List<User> MessUsers()
         {
             return this.users.OrderBy(u => u.Points).ToList();
         }
 
+        public List<User> GetUser()
+        {
+            return users;
+        }
 
        public List<Question> GetPendingQuestions()
         {
@@ -48,7 +66,11 @@ namespace TriviaApp.Services
         }
         public void ApproveQuestion(Question q)
         {
-            q.Status = statusQuestions.Where(x => x.StatusId == 2).FirstOrDefault();
+            q.Status= statusQuestions.Where(x => x.StatusId == 2).FirstOrDefault();
+        }
+        public void DeclineQuestion(Question q)
+        {
+            q.Status = statusQuestions.Where(x => x.StatusId == 3).FirstOrDefault();
         }
 
         public List<User> GetPlayerByLevel(string l)
