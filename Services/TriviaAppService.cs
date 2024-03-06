@@ -30,7 +30,12 @@ namespace TriviaApp.Services
             return this.users.OrderByDescending(u => u.Points).ToList();
         }
 
-       
+        public List<User> MessUsers()
+        {
+            return this.users.OrderBy(u => u.Points).ToList();
+        }
+
+
 
     }
 }

@@ -10,9 +10,6 @@
     <ScrollView>
         <VerticalStackLayout>
 
-
-
-
             <CollectionView ItemsSource="{Binding}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="Models:User">

@@ -24,22 +24,24 @@ namespace TriviaApp.ViewModel
         public User SelectedUser { get=> selectedUser; set { selectedUser = value; UpdateFields(); } }
         public ObservableCollection<User> Users { get; set; }
         public ICommand LoadUsersCommand { get; private set; }
-        public ICommand ShowUserDetailsCommand { get; private set; }
+        public ICommand MessUsersCommand { get; private set; }
         public bool IsRefreshing { get => isRefreshing; set { isRefreshing = value; OnPropertyChanged(); } }
         public string Rank {  get => rank; set { rank = value; OnPropertyChanged(); } }  
         public string Email { get => email; set { email = value; OnPropertyChanged(); } }
         public BestScoresPageViewModel(TriviaAppService triviaApp)
         {
+            IsRefreshing = false;
             this.triviaApp = triviaApp;
             Users = new ObservableCollection<User>();
             LoadUsersCommand = new Command(async () => await
             LoadUsers());
+            MessUsersCommand = new Command(async () => await ReloadAndOrder());
             
         }
 
         private async Task LoadUsers()
         {
-            if (IsRefreshing) return;
+           
             IsRefreshing = true;
             Users.Clear();
             var list=  triviaApp.OrderUsers();
@@ -49,7 +51,7 @@ namespace TriviaApp.ViewModel
                 Users.Add(u);
             }
             IsRefreshing = false;
-
+            isOrdered = false;
         }
 
         private void UpdateFields()
@@ -58,6 +60,29 @@ namespace TriviaApp.ViewModel
             {
                 Rank = SelectedUser.Rank.RankName;
                 Email = SelectedUser.Email;
+            }
+
+        }
+
+        private async Task ReloadAndOrder()
+        {
+           List<User> list;
+            if (isOrdered)
+            {
+                list = triviaApp.MessUsers();
+                isOrdered = false;
+               
+            }
+            else
+            {
+                list = triviaApp.OrderUsers();
+                
+                isOrdered = true;
+            }
+            Users.Clear();
+            foreach (User u in list)
+            {
+                Users.Add(u);
             }
 
         }

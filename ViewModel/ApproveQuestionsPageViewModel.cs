@@ -8,7 +8,7 @@ using TriviaApp.Services;
 
 namespace TriviaApp.ViewModel
 {
-    internal class ApproveQuestionsPageViewModel:ViewModel
+    public class ApproveQuestionsPageViewModel:ViewModel
     {
         private TriviaAppService service;
         public ApproveQuestionsPageViewModel(TriviaAppService service_)
