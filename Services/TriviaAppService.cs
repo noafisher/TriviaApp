@@ -55,7 +55,7 @@ namespace TriviaApp.Services
             return this.users.OrderBy(u => u.Points).ToList();
         }
 
-        public List<User> GetUser()
+        public List<User> GetUsers()
         {
             return users;
         }

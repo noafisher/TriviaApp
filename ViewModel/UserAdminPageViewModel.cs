@@ -23,25 +23,26 @@ namespace TriviaApp.ViewModel
         public ICommand RefreshCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
         public ICommand ResetCommand { get; private set; }
+        public ICommand InsertCommand { get; private set; }
 
         public UserAdminPageViewModel(TriviaAppService service)
         {
+            IsRefreshing = false;
             Users = new ObservableCollection<User>();
             RefreshCommand = new Command(async () => await Refresh());
             LoadUsersCommand = new Command(async () => await LoadUsers());
             DeleteCommand = new Command((object obj) => Delete(obj));
             ResetCommand = new Command((object obj) => Reset(obj));
+            InsertCommand = new Command((object obj) => Insert(obj));
             this.service = service;
+            LoadUsers();
         }
 
         private async Task LoadUsers()
         {
             IsRefreshing = true;
-            var List = service.GetUser();
-            for (int i = 0; i < List.Count; i++)
-            {
-                Users.Add(List[i]);
-            }
+            Users = new ObservableCollection<User>(service.GetUsers());
+            
             IsRefreshing = false;
 
         }
@@ -62,6 +63,10 @@ namespace TriviaApp.ViewModel
             User s = obj as User;
             s.Points = 0;
             
+        }
+        private void Insert(object user)
+        {
+            Users.Add((User)user);
         }
 
     }

@@ -8,17 +8,21 @@
 
     <ShellContent
         Title="Home"
-        FlyoutItemIsVisible="False"
         ContentTemplate="{DataTemplate local:LoginPage}"
+        FlyoutItemIsVisible="False"
         Route="MainPage" />
 
     <ShellContent
         Title="Approve Questions"
         ContentTemplate="{DataTemplate local:ApproveQuestionsPage}"
-        Route="ApproveQuestionsPage"/>
+        Route="ApproveQuestionsPage" />
     <ShellContent
         Title="Best Scores"
         ContentTemplate="{DataTemplate local:BestScoresPage}"
-        Route="BestScoresPage"/>
+        Route="BestScoresPage" />
+    <ShellContent
+        Title="User Admin"
+        ContentTemplate="{DataTemplate local:UserAdminPage}"
+        Route="UserAdminPage" />
 
 </Shell>
