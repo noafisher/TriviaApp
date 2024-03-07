@@ -11,5 +11,9 @@ namespace TriviaApp.Models
     {
         public string RankName { get; set; } = null!;
         public int RankId { get; set; }
+        public Rank()
+        {
+            
+        }
     }
 }

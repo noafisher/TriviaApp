@@ -11,14 +11,30 @@
         <RefreshView Command="{Binding RefreshCommand}" IsRefreshing="{Binding IsRefreshing}">
             <VerticalStackLayout>
                 <Label Text="Insert the player:" />
-                <Entry Placeholder="הכנס איימיל" PlaceholderColor="MidnightBlue" />
-                <Entry Placeholder="הכנס שם משתמש" PlaceholderColor="MidnightBlue" />
+                <Entry
+                    Placeholder="הכנס איימיל"
+                    PlaceholderColor="MidnightBlue"
+                    Text="{Binding NewUser.Email}" />
+                <Entry
+                    Placeholder="הכנס שם משתמש"
+                    PlaceholderColor="MidnightBlue"
+                    Text="{Binding NewUser.UserName}" />
 
                 <Entry
                     IsPassword="True"
                     Placeholder="הכנס סיסמה"
-                    PlaceholderColor="MidnightBlue" />
+                    PlaceholderColor="MidnightBlue"
+                    Text="{Binding NewUser.Password}" />
                 <Button Command="{Binding InsertCommand}" Text="הכנס " />
+                <Entry
+                    x:Name="filter"
+                    Grid.Column="0"
+                    Placeholder="enter a level" />
+                <Button
+                    Grid.Column="1"
+                    Command="{Binding FilterByLevelCommand}"
+                    CommandParameter="{Binding Text, Source={x:Reference filter}}"
+                    Text="Filter By Level" />
                 <CollectionView
                     x:Name="cv"
                     EmptyView="אין מה לחפש פה:_("
