@@ -22,7 +22,7 @@ namespace TriviaApp.ViewModel
         private bool isOrdered;
         private string filterEntry;
 
-        public User SelectedUser { get=> selectedUser; set { selectedUser = value; UpdateFields(); } }
+        public User SelectedUser { get=> selectedUser; set { selectedUser = value; OnPropertyChanged(); UpdateFields(); } }
         public ObservableCollection<User> Users { get; set; }
         public ICommand LoadUsersCommand { get; private set; }
         public ICommand MessUsersCommand { get; private set; }
@@ -44,11 +44,11 @@ namespace TriviaApp.ViewModel
         }
 
         
-
+        ///
         private async Task LoadUsers()
         {
            
-            IsRefreshing = true;
+           IsRefreshing = true;
             Users.Clear();
             var list=  triviaApp.OrderUsers();
             
@@ -56,7 +56,9 @@ namespace TriviaApp.ViewModel
             {
                 Users.Add(u);
             }
-            IsRefreshing = false;
+            SelectedUser = null; 
+
+          IsRefreshing = false;
             isOrdered = true; 
         }
 
@@ -66,6 +68,11 @@ namespace TriviaApp.ViewModel
             {
                 Rank = SelectedUser.Rank.RankName;
                 Email = SelectedUser.Email;
+            }
+            else
+            {
+                Rank = string.Empty;
+                Email = string.Empty;
             }
 
         }

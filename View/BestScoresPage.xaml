@@ -11,10 +11,12 @@
 
         <Button
             Margin="10"
+            BackgroundColor="MidnightBlue"
             Command="{Binding LoadUsersCommand}"
             Text="Enter Users" />
         <Button
             Margin="10"
+            BackgroundColor="MidnightBlue"
             Command="{Binding MessUsersCommand}"
             Text="Order Again" />
         <Grid Margin="10" ColumnDefinitions="*,*">
@@ -26,14 +28,19 @@
 
             <Button
                 Grid.Column="1"
+                BackgroundColor="MidnightBlue"
                 Command="{Binding FilterByLevelCommand}"
                 CommandParameter="{Binding Text, Source={x:Reference filter}}"
                 Text="Filter By Level" />
         </Grid>
-        <RefreshView Command="{Binding LoadUsersCommand}" IsRefreshing="{Binding IsRefreshing}">
+        <RefreshView
+            Command="{Binding LoadUsersCommand}"
+            HeightRequest="250"
+            IsRefreshing="{Binding IsRefreshing}">
 
             <CollectionView
                 x:Name="cv"
+                HeightRequest="250"
                 ItemsSource="{Binding Users}"
                 SelectedItem="{Binding SelectedUser}"
                 SelectionMode="Single">
@@ -70,24 +77,32 @@
         </RefreshView>
         <!--  user info  -->
         <HorizontalStackLayout>
-            <Label>
+
+            <Label
+                Margin="4"
+                FontSize="15"
+                TextColor="MidnightBlue">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="User Rank:" />
+                        <Span Text="Rank:" />
                         <Span Text="{Binding Rank}" />
                     </FormattedString>
 
                 </Label.FormattedText>
             </Label>
-            <Label>
+            <Label
+                Margin="4"
+                FontSize="15"
+                TextColor="MidnightBlue">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="User Email:" />
+                        <Span Text="Email:" />
                         <Span Text="{Binding Email}" />
                     </FormattedString>
 
                 </Label.FormattedText>
             </Label>
+
         </HorizontalStackLayout>
 
     </VerticalStackLayout>
