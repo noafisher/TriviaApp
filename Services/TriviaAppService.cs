@@ -29,7 +29,9 @@ namespace TriviaApp.Services
             subjectQuestions.Add(new SubjectQuestion() { SubjectId = 3, SubjectName = "TV shows" });
             subjectQuestions.Add(new SubjectQuestion() { SubjectId = 4, SubjectName = "Movies" });
             questions = new List<Question>();
-            questions.Add(new Question() { QuestionId = 1, Subject = subjectQuestions.Where(x=>x.SubjectId==1).FirstOrDefault(), CreatedBy = "NoaF", Status = statusQuestions.Where(x=>x.StatusId==1).FirstOrDefault(), Text="how many arms does an octopus have?", Ranswer="8", Wanswer1="10", Wanswer2="4", Wanswer3="30" });
+            questions.Add(new Question() { QuestionId = 1, Subject = subjectQuestions.Where(x => x.SubjectId == 1).FirstOrDefault(), CreatedBy = "NoaF", Status = statusQuestions.Where(x => x.StatusId == 1).FirstOrDefault(), Text = "how many arms does an octopus have?", Ranswer = "8", Wanswer1 = "10", Wanswer2 = "4", Wanswer3 = "30" });
+            questions.Add(new Question() { QuestionId = 1, Subject = subjectQuestions.Where(x => x.SubjectId == 3).FirstOrDefault(), CreatedBy = "NoaF", Status = statusQuestions.Where(x => x.StatusId == 1).FirstOrDefault(), Text = "what is the most success tv show?", Ranswer = "The Simpsons", Wanswer1 = "Friends", Wanswer2 = "Modern Family", Wanswer3 = "The Big Bang Theory" });
+            questions.Add(new Question() { QuestionId = 1, Subject = subjectQuestions.Where(x => x.SubjectId == 4).FirstOrDefault(), CreatedBy = "NoaF", Status = statusQuestions.Where(x => x.StatusId == 1).FirstOrDefault(), Text = "what is the most success movie?", Ranswer = "Avatar", Wanswer1 = "Avengers : Endgame", Wanswer2 = "Avatar : Way of Water", Wanswer3 = "Titanic" });
         }
 
         public bool Login(string name, string pass)

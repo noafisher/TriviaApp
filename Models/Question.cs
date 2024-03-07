@@ -14,7 +14,6 @@ namespace TriviaApp.Models
 
         public string Text { get; set; } = null!;
 
-       
         public int QuestionId { get; set; }
 
         public string Ranswer { get; set; } = null!;
